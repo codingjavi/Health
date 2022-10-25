@@ -1,0 +1,20 @@
+#heart{
+    width: 200px;
+    
+}
+#notes{
+    border: 1px #ccc solid;
+    float: right;
+    width: 80%;
+}
+#immune{
+    width: 243px;
+    /*float: left;*/
+}
+.left_box{
+    border: 1px solid #ccc;
+    width: 250px;
+    height: 1500px;
+    float: left;
+    margin-left: -30px;
+}

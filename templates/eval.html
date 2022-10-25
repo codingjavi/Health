@@ -1,0 +1,217 @@
+{%extends "base.html"%}
+{% block title %}changed{% endblock %}
+
+<!--where we're putting unique content for each page-->
+{% block content %}
+    
+
+<!--where the main website is-->
+
+    <form method="post">
+        <!--Heart-->
+        <label>Do you get leg pains?</label>
+        <input type="checkbox" name = "heart0"/>
+        <br>
+
+        <label>Do you get shortness of breath?</label>
+        <input type="checkbox" name = "heart1"/>
+        <br>
+        
+        <label>Do you have a speech impediment?</label>
+        <input type="checkbox" name = "heart2"/>
+        <br>
+
+        <label>Are you an athlete?</label>
+        <input type="checkbox" name = "heart3"/>
+        <br>
+
+        <label>Does you family have a history with heart disease?</label>
+        <input type="checkbox" name = "heart4"/>
+        <br>
+
+        <label>Have you recently been in an accident or had surgery?</label>
+        <input type="checkbox" name = "heart5"/>
+        <br>
+
+        <label>Do you have frequent headaches?</label>
+        <input type="checkbox" name = "heart6"/>
+        <br>
+
+        <label> Do you suffer from PTSD or any sort of trauma?</label>
+        <input type="checkbox" name = "heart7"/>
+        <br>
+        <br>
+
+
+        <!-- Immune, stress is also a big one -->
+        <label>Do you frequently get sick?</label>
+        <input type="checkbox" name = "immune0"/>
+        <br>
+
+        <label>Do you get frequent aches and pains?</label>
+        <input type="checkbox" name = "immune1"/>
+        <br>
+
+        <label>Do you cosume alot of unhealthy/fast food?</label>
+        <input type="checkbox" name = "immune2"/>
+        <br>
+
+        <label>Do you drink alcohol or smoke?</label>
+        <input type="checkbox" name = "immune3"/>
+        <br>
+
+        <label>Are your fingers, feet, nose, and ears always cold?</label>
+        <input type="checkbox" name = "immune4"/>
+        <br>
+
+        <label>Are your wounds slow to heal?</label>
+        <input type="checkbox" name = "immune5"/>
+        <br>
+        <br>
+
+        <!--Gastro (also allergies and emotional anziety)-->
+        <label>Do you brush your teeth regularly but still have bad breath?</label>
+        <input type="checkbox" name = "gastro0"/>
+        <br>
+        <label>Do you regularly have diarrhea?</label>
+        <input type="checkbox" name = "gastro1"/>
+        <br>
+        <label>Are you regularly constipated?</label>
+        <input type="checkbox" name = "gastro2"/>
+        <br>
+        <label>Do you get frequent heartburn?</label>
+        <input type="checkbox" name = "gastro3"/>
+        <br>
+        <label>Do you feel bloated and have alot of gas?</label>
+        <input type="checkbox" name = "gastro4"/>
+        <br>
+        <label>Do you vomit frequently?</label>
+        <input type="checkbox" name = "gastro5"/>
+        <br>
+        
+        <!-- Kalmz -->
+
+        <br>
+        <label>Do you have anziety?</label>
+        <input type="checkbox" name = "kalmz0"/>
+        <br>
+        <label>Are you depressed?</label>
+        <input type="checkbox" name = "kalmz1"/>
+        <br>
+        <label>Are you stressed?</label>
+        <input type="checkbox" name = "kalmz2"/>
+        <br>
+        <label>Does you back hurt?</label>
+        <input type="checkbox" name = "kalmz3"/>
+        <br>
+        <label>Do you have low self-esteem?</label>
+        <input type="checkbox" name = "kalmz4"/>
+        <br>
+        <label>Have a hard time controlling your emotions?</label>
+        <input type="checkbox" name = "kalmz5"/>
+        <br>
+        <label>Do you have a hard time sleeping?</label>
+        <input type="checkbox" name = "kalmz6"/>
+        <br>
+        <label>Do you have a hard time concetrating on things?</label>
+        <input type="checkbox" name = "kalmz7"/>
+        <br>
+
+        <!--Adrenal, stress-->
+        <br>
+        <label>Do you usually get lighheaded?</label>
+        <input type="checkbox" name = "adrenal0"/>
+        <br>
+        <label>Do you have high cholesterol?</label>
+        <input type="checkbox" name = "adrenal1"/>
+        <br>
+        <label>Do you always feel exhausted?</label>
+        <input type="checkbox" name = "adrenal2"/>
+        <br>
+        <label>Do you have asthma?</label>
+        <input type="checkbox" name = "adrenal3"/>
+        <br>
+        <label>Do you have knee and back pain?</label>
+        <input type="checkbox" name = "adrenal4"/>
+        <br>
+        <label>Do you have an imbalanced blood sugar?</label>
+        <input type="checkbox" name = "adrenal5"/>
+        <br>
+        <label>Irregular or no menstrual periods?</label>
+        <input type="checkbox" name = "adrenal6"/>
+        <br>
+
+        <!--Thyroid-->
+        <br>
+        <label>Are you experiencing excessive weight gain?</label>
+        <input type="checkbox" name = "thyroid0"/>
+        <br>
+        <label>Low blood pressure?</label>
+        <input type="checkbox" name = "thyroid0"/>
+        <br>
+        <label>Do you have dry skin or hair loss?</label>
+        <input type="checkbox" name = "thyroid0"/>
+        <br>
+        <label>Do your hands get really shaky?</label>
+        <input type="checkbox" name = "thyroid0"/>
+        <br>
+        <label>Painful menstrual periods?</label>
+        <input type="checkbox" name = "thyroid0"/>
+        <br>
+        <label>Do you get really nervous?</label>
+        <input type="checkbox" name = "thyroid0"/>
+        <br>
+
+        <!-- NEED!!!!!  a button that calculates results and one that takes me to the other page maybe-->
+
+        
+
+        <!--this button can take me to results.html-->
+        <!--this works with google!!!!,    THIS WORKS!!!!!! NVM DO IT DOESNT GET THE HEART VALUE-->
+        <button>Click</button>
+        <input type="button" onclick="location.href='{{ url_for('results')}}';" value="Go to Google"> </input> 
+
+        
+            
+        
+
+
+        <!--
+
+
+
+        <form method = "POST" action="{{ url_for('results') }}">
+        <button>Click</button>
+        </form>
+
+        <button type = "submit" name = "done"></button>
+
+        
+        
+            
+        -->
+
+
+        <!-- This button doesn't work
+        <button> <a href="{{ url_for('results') }}">click</a> </button>
+        
+        
+    <button onClick = "myOnClickFn()">Click</button>
+        <script>
+            function myOnClickFn(){
+                document.location.href="results.html";
+            }
+        </script>
+    
+    
+        -->
+        {{ heart1 }}
+        {{ heart }}
+        {{ immune }}
+        {{ gastro }}
+        {{ kalmz }}
+        {{ adrenal }}
+        {{ thyroid }}
+    </form>
+
+{% endblock %}

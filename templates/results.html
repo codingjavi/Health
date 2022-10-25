@@ -1,0 +1,44 @@
+{%extends "base.html"%}
+{% block title %}Results{% endblock %}
+
+<!--where we're putting unique content for each page-->
+{% block content %}
+
+
+
+
+<div class = "left_box">
+
+{% for image in images%}
+
+<image id="immune" src="data:image/jpeg;base64,{{ image }}"></image>
+
+{% endfor %}
+
+<!--  
+<image id="heart" src="data:image/jpeg;base64,{{ heart_image }}"></image>
+
+<image id="immune" src="data:image/jpeg;base64,{{ immune_image }}"></image>
+
+<image id="immune" src="data:image/jpeg;base64,{{ gastro_image }}"></image>
+
+<image id="immune" src="data:image/jpeg;base64,{{ kalmz_image }}"></image>
+-->
+</div>
+
+<ul class = "list-group list group list-group-flush" id = "notes">
+    {% for note in user.notes %}
+    
+    <li class = "list-group-item"> {{note.vitamin}} <br>{{note.data}}</li>
+    {{note.description}}
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    {% endfor %}
+
+</ul>
+{{heart}}
+
+{% endblock %}
