@@ -4,10 +4,19 @@
 <!--where we're putting unique content for each page-->
 {% block content %} 
 <!--where the main website is-->
+<!--CHECK IF THE'VE TAKES THE TEST BY SEEING IF THERE'S ANYTHING IN THEIR DATABASE-->
 <body>
     
-    <h2><a href="{{ url_for('eval') }}"> get evalueated here</a></h2>
-    <h2><a href="{{ url_for('results') }}"> vitamins </a> </h2>
+{% if checked == 1 %}
+<h2><a href="{{ url_for('eval_again') }}"> Get evalueated again!</a></h2>
+
+{% else %}       
+<h2><a href="{{ url_for('eval') }}"> Get evalueated here!</a></h2>
+
+{%endif%}
+   
+
+<h2><a href="{{ url_for('results') }}"> Check your vitamins here!</a> </h2>
 
 
 

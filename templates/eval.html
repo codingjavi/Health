@@ -168,16 +168,12 @@
 
         <!--this button can take me to results.html-->
         <!--this works with google!!!!,    THIS WORKS!!!!!! NVM DO IT DOESNT GET THE HEART VALUE-->
-        <button>Click</button>
-        <input type="button" onclick="location.href='{{ url_for('results')}}';" value="Go to Google"> </input> 
+        <button name = "submit_button" value = "checked">Submit</button>
+        <input type="button" onclick="location.href='{{ url_for('results')}}';" value="Check Results"> </input> 
 
         
             
-        
-
-
         <!--
-
 
 
         <form method = "POST" action="{{ url_for('results') }}">
@@ -205,13 +201,6 @@
     
     
         -->
-        {{ heart1 }}
-        {{ heart }}
-        {{ immune }}
-        {{ gastro }}
-        {{ kalmz }}
-        {{ adrenal }}
-        {{ thyroid }}
     </form>
 
 {% endblock %}

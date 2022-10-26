@@ -81,12 +81,30 @@ def load_user(id):
 @app.route("/home", methods = ['GET', 'POST'])
 def home():
     #current user is checking if there's currenlty a user logged in
-    return render_template('home.html', user = current_user)
+    
+    #to check if user has already been evaluated
+    checked = 0
+    ''' SESSION DOESNT TRACK SPECIFICALLY FOR USER SO MIGHT CHECK FOR SOMETHING IN THE DATABASE TO SEE IF THEY ALREADY TOOK THE TEST
+    if "checked" in session:
+        print("checcking for sessino checking")
+        checked = session["checked"]
+        print(checked)
+        '''
+    #maybe try QUERING vitamins from database to see if we queried anything
+    new_vitamin = Note.query.filter_by(user_id = current_user.id).all()
+    
+    #IT WORKED!!! :))
+    for i in new_vitamin:
+        
+        if i.vitamin == "heart" or "Immune-Rmor" or "Gastro-Digest II" or "Kalmz" or "ReGenerZyme Adrenal" or "ReGenerZyme Thyroid":
+            checked = 1
+        
+    return render_template('home.html', user = current_user, checked = checked)
 
 @app.route("/eval", methods = ['POST', 'GET'])
 def eval():
     
-    
+
 
     '''if evaluated == True:
         db.session.delete(new_vitamin)
@@ -97,6 +115,7 @@ def eval():
     #if its the first time running evaluation
     evaluated = True'''
 
+    print("Im here")
     #the different types of vitamins
     heart = 0
     heart_description = "The heart is the hardest working muscle of the body. It continually contracts and relaxes (beating over 100,000 times every day), delivering life-giving blood to every organ, gland, cell, and structure of the body. ReGenerZyme Heart supports and restores the heart as well as other muscles of the body. It is excellent nutrition for athletes and others who want to optimize heart and muscle function."
@@ -117,6 +136,9 @@ def eval():
     thyroid_description = "The thyroid is involved in producing hormones necessary for a stable emotional state, optimal metabolism, and normal body function. ReGenerZyme Thyroid was formulated to support the body with nutrients used to hydrate, balance, and restore the energy of the thyroid so it can function optimally."
 
     if request.method == 'POST':
+
+        if request.form['submit_button'] == 'checked':
+            flash('Evaluation complete!, click results to see results', category='success')
 
         for i in range(8):
             if request.form.get('heart' + str(i)):
@@ -173,25 +195,22 @@ def eval():
         #ITS RUNNING NOW!! no need to do sessions anymore, BUT THE BUTTON DOESN'T WORK!!!
         if heart >= 8:
             
-            new_vitamin = Note(vitamin = "heart", data = "you need 3 capsules before bed and 3 in the morning", description = heart_description, user_id = current_user.id)
+            new_vitamin = Note(vitamin = "ReGenerZyme Heart", data = "you need 3 capsules before bed and 3 in the morning", description = heart_description, user_id = current_user.id)
             db.session.add(new_vitamin)
             db.session.commit()
 
-            flash('Evaluation complete!, click results to see results', category='success')
         elif heart >= 5:
             
-            new_vitamin = Note(vitamin = "heart", data = "you need 2 capsules before bed and 2 in the morning", description = heart_description, user_id = current_user.id)
+            new_vitamin = Note(vitamin = "ReGenerZyme Heart", data = "you need 2 capsules before bed and 2 in the morning", description = heart_description, user_id = current_user.id)
             db.session.add(new_vitamin)
             db.session.commit()
 
-            flash('Evaluation complete!, click results to see results', category='success')
         elif heart >= 3:
             
-            new_vitamin = Note(vitamin = "heart", data = "you need 1 capsule before bed and 1 in the morning",description = heart_description, user_id = current_user.id)
+            new_vitamin = Note(vitamin = "ReGenerZyme Heart", data = "you need 1 capsule before bed and 1 in the morning",description = heart_description, user_id = current_user.id)
             db.session.add(new_vitamin)
             db.session.commit()
 
-            flash('Evaluation complete!, click results to see results', category='success')
 
 
 
@@ -200,95 +219,321 @@ def eval():
             db.session.add(new_vitamin)
             db.session.commit()
 
-            flash('Evaluation complete!, click results to see results', category='success')
         elif immune >= 5:
             new_vitamin = Note(vitamin = "Immune-Rmor", data = "you need 2 capsule before bed and 2 in the morning",description = immune_description, user_id = current_user.id)
             db.session.add(new_vitamin)
             db.session.commit()
 
-            flash('Evaluation complete!, click results to see results', category='success')
         elif immune >= 2:
             new_vitamin = Note(vitamin = "Immune-Rmor", data = "you need 1 capsule before bed and 1 in the morning",description = immune_description, user_id = current_user.id)
             db.session.add(new_vitamin)
             db.session.commit()
 
-            flash('Evaluation complete!, click results to see results', category='success')
 
         if gastro == 6:
             new_vitamin = Note(vitamin = "Gastro-Digest II", data = "you need 3 capsule before bed and 3 in the morning",description = gastro_description, user_id = current_user.id)
             db.session.add(new_vitamin)
             db.session.commit()
 
-            flash('Evaluation complete!, click results to see results', category='success')
         elif gastro >=3:
             new_vitamin = Note(vitamin = "Gastro-Digest II", data = "you need 2 capsule before bed and 2 in the morning",description = gastro_description, user_id = current_user.id)
             db.session.add(new_vitamin)
             db.session.commit()
 
-            flash('Evaluation complete!, click results to see results', category='success')
         elif gastro >= 1:
             new_vitamin = Note(vitamin = "Gastro-Digest II", data = "you need 1 capsule before bed and 1 in the morning",description = gastro_description, user_id = current_user.id)
             db.session.add(new_vitamin)
             db.session.commit()
 
-            flash('Evaluation complete!, click results to see results', category='success')
 
         if kalmz == 8:#take more at night
             new_vitamin = Note(vitamin = "Kalmz", data = "you need 4 capsule before bed",description = kalmz_description, user_id = current_user.id)
             db.session.add(new_vitamin)
             db.session.commit()
 
-            flash('Evaluation complete!, click results to see results', category='success') 
         elif kalmz >=4:
             new_vitamin = Note(vitamin = "Kalmz", data = "you need 3 capsule before bed",description = kalmz_description, user_id = current_user.id)
             db.session.add(new_vitamin)
             db.session.commit()
 
-            flash('Evaluation complete!, click results to see results', category='success')
         elif kalmz >= 1:
             new_vitamin = Note(vitamin = "Kalmz", data = "you need 2 capsule before bed",description = kalmz_description, user_id = current_user.id)
             db.session.add(new_vitamin)
             db.session.commit()
 
-            flash('Evaluation complete!, click results to see results', category='success')
 
         if adrenal == 7:
             new_vitamin = Note(vitamin = "ReGenerZyme Adrenal", data = "you need 1 capsule before bed and 1 in the morning",description = adrenal_description, user_id = current_user.id)
             db.session.add(new_vitamin)
             db.session.commit()
 
-            flash('Evaluation complete!, click results to see results', category='success')
         elif adrenal >=4:
             new_vitamin = Note(vitamin = "ReGenerZyme Adrenal", data = "you need 1 capsule before bed and 1 in the morning",description = adrenal_description, user_id = current_user.id)
             db.session.add(new_vitamin)
             db.session.commit()
 
-            flash('Evaluation complete!, click results to see results', category='success')
         elif adrenal >= 1:
             new_vitamin = Note(vitamin = "ReGenerZyme Adrenal", data = "you need 1 capsule before bed and 1 in the morning",description = adrenal_description, user_id = current_user.id)
             db.session.add(new_vitamin)
             db.session.commit()
 
-            flash('Evaluation complete!, click results to see results', category='success')
 
         if thyroid >= 8:
             new_vitamin = Note(vitamin = "ReGenerZyme Thyroid", data = "you need 3 capsule before bed",description = thyroid_description, user_id = current_user.id)
             db.session.add(new_vitamin)
             db.session.commit()
 
-            flash('Evaluation complete!, click results to see results', category='success')
         elif thyroid >=4:
             new_vitamin = Note(vitamin = "ReGenerZyme Thyroid", data = "you need 2 capsule before bed",description = thyroid_description, user_id = current_user.id)
             db.session.add(new_vitamin)
             db.session.commit()
 
-            flash('Evaluation complete!, click results to see results', category='success')
         elif thyroid >= 1:
             new_vitamin = Note(vitamin = "ReGenerZyme Thyroid", data = "you need 1 capsule before bed",description = thyroid_description, user_id = current_user.id)
             db.session.add(new_vitamin)
             db.session.commit()
 
+        
+    #session['heart'] = heart
+
+    #maybe request.form(button here to take me to /results)
+        
+    return render_template("eval.html", user = current_user, heart = heart)
+
+#to evaluate again HAVE TO DELETE PREVIOUS VITAMINS
+@app.route("/eval_again", methods = ['POST', 'GET'])
+def eval_again():
+    
+
+    #DELETING PREVIOUS VITAMIN IF TAKE EVALUATION AGAIN
+    '''This issn't working 
+        '''
+    #THIS WORKS!!!! DELETING EVERY VITAMIN WHEN TAKING EVALUATION AGAIN
+    #new_vitamin = Note.query.filter_by(user_id = current_user.id).all()
+
+    #for i in new_vitamin:
+       # db.session.delete(i)
+       # db.session.commit()
+        
+
+    
+
+
+
+    #notes.User.query().delete()
+
+    #db.session.query(Note).filter(Note.id==current_user).delete()
+    #db.session.commit()
+
+    print("DELETED")
+
+    #the different types of vitamins
+    heart = 0
+    heart_description = "The heart is the hardest working muscle of the body. It continually contracts and relaxes (beating over 100,000 times every day), delivering life-giving blood to every organ, gland, cell, and structure of the body. ReGenerZyme Heart supports and restores the heart as well as other muscles of the body. It is excellent nutrition for athletes and others who want to optimize heart and muscle function."
+    
+    immune = 0
+    immune_description = "Immune-Rmor (immune armor) is immune system support and restoration formula that nourishes the spleen, lymph, pituitary, and thymus glands. A healthy immune system is able to distinguish between a healthy cell and tissue and unwanted invaders. It is our body’s armor against unwanted bacteria, viruses, parasites, fungi, etc."
+
+    gastro = 0
+    gastro_description = "Gastro-Digest II is a two-stage formula designed to support digestion. The first stage assists the stomach where acid is used to break down proteins. The second stage of the formula is enteric coated, which protects the ingredients from the stomach acid. They remain intact to be utilized by the gallbladder, liver, pancreas and intestine where the major part of digestion and nutrient assimilation occurs."
+    
+    kalmz = 0
+    kalmz_description = "Kalmz provides nutritional support for the body that needs to release physical pain and emotional stress. It also calms the toxic chaos that may overwhelm the body by denaturing (neutralizing) toxins from food, emotions, and/or the environment."
+    
+    adrenal = 0
+    adrenal_description = "When stress is high and hormones are low the adrenals come to the rescue. ReGenerZyme Adrenal provides nutritional resources so the adrenals can rest, restore and function optimally. The 7-Keto DHEA in the formula supports both the thyroid and adrenals."
+    
+    thyroid = 0
+    thyroid_description = "The thyroid is involved in producing hormones necessary for a stable emotional state, optimal metabolism, and normal body function. ReGenerZyme Thyroid was formulated to support the body with nutrients used to hydrate, balance, and restore the energy of the thyroid so it can function optimally."
+
+    if request.method == 'POST':
+
+        #THIS WORKS BUT DOESN SPECIFICALLY TRACK if SPECIFIC USERS HAVE TAKEN THE TEST
+        
+        if request.form['submit_button'] == 'checked':
+            #flashing message when user submits their evalutation
             flash('Evaluation complete!, click results to see results', category='success')
+
+            #deleting their previous vitamins when they press the submit button again
+            #THIS WORKS!!!! DELETING EVERY VITAMIN WHEN TAKING EVALUATION AGAIN
+            new_vitamin = Note.query.filter_by(user_id = current_user.id).all()
+
+            for i in new_vitamin:
+                db.session.delete(i)
+                db.session.commit()
+        
+
+        for i in range(8):
+            if request.form.get('heart' + str(i)):
+                heart += 1
+        #for checkboxes with same values
+        #if request.form.get('inspira0'):
+            #heart += 1
+
+        for i in range(8):
+            if request.form.get('immune' + str(i)):
+                immune += 1
+
+        for i in range(6):
+            if request.form.get('gastro' + str(i)):
+                gastro += 1
+
+        for i in range(8):
+            if request.form.get('kalmz' + str(i)):
+                kalmz += 1
+
+        for i in range(7):
+            if request.form.get('adrenal' + str(i)):
+                adrenal += 1
+
+        for i in range(7):
+            if request.form.get('thyroid' + str(i)):
+                thyroid += 1
+
+        #avoiding repeating questions
+        #high cholesterol
+        if request.form.get('adrenal1'):
+            thyroid += 1
+
+        #unhealthy food
+        if request.form.get('immune2'):
+            thyroid += 1
+
+        #depression
+        if request.form.get('kalmz1'):
+            thyroid += 1
+        
+        #irregular or no mestrual cycles
+        if request.form.get('adrenal6'):
+            thyroid += 1
+
+        if request.form.get('adrenal2'):
+            immune += 1
+
+        
+            #vitamin = "heart",
+            #the vitamin
+            #how many to take
+            #description
+        #ITS RUNNING NOW!! no need to do sessions anymore, BUT THE BUTTON DOESN'T WORK!!!
+        if heart >= 8:
+            
+            new_vitamin = Note(vitamin = "ReGenerZyme Heart", data = "You need 3 capsules before bed and 3 in the morning", description = heart_description, user_id = current_user.id)
+            db.session.add(new_vitamin)
+            db.session.commit()
+
+            #flash('Evaluation complete!, click results to see results', category='success')
+        elif heart >= 5:
+            
+            new_vitamin = Note(vitamin = "ReGenerZyme Heart", data = "You need 2 capsules before bed and 2 in the morning", description = heart_description, user_id = current_user.id)
+            db.session.add(new_vitamin)
+            db.session.commit()
+
+            #flash('Evaluation complete!, click results to see results', category='success')
+        elif heart >= 3:
+            
+            new_vitamin = Note(vitamin = "ReGenerZyme Heart", data = "You need 1 capsule before bed and 1 in the morning",description = heart_description, user_id = current_user.id)
+            db.session.add(new_vitamin)
+            db.session.commit()
+
+            #flash('Evaluation complete!, click results to see results', category='success')
+
+
+
+        if immune == 8:
+            new_vitamin = Note(vitamin = "Immune-Rmor", data = "You need 3 capsule before bed and 3 in the morning",description = immune_description, user_id = current_user.id)
+            db.session.add(new_vitamin)
+            db.session.commit()
+
+            #flash('Evaluation complete!, click results to see results', category='success')
+        elif immune >= 5:
+            new_vitamin = Note(vitamin = "Immune-Rmor", data = "You need 2 capsule before bed and 2 in the morning",description = immune_description, user_id = current_user.id)
+            db.session.add(new_vitamin)
+            db.session.commit()
+
+            #flash('Evaluation complete!, click results to see results', category='success')
+        elif immune >= 2:
+            new_vitamin = Note(vitamin = "Immune-Rmor", data = "You need 1 capsule before bed and 1 in the morning",description = immune_description, user_id = current_user.id)
+            db.session.add(new_vitamin)
+            db.session.commit()
+
+            #flash('Evaluation complete!, click results to see results', category='success')
+
+        if gastro == 6:
+            new_vitamin = Note(vitamin = "Gastro-Digest II", data = "You need 3 capsule before bed and 3 in the morning",description = gastro_description, user_id = current_user.id)
+            db.session.add(new_vitamin)
+            db.session.commit()
+
+            #flash('Evaluation complete!, click results to see results', category='success')
+        elif gastro >=3:
+            new_vitamin = Note(vitamin = "Gastro-Digest II", data = "You need 2 capsule before bed and 2 in the morning",description = gastro_description, user_id = current_user.id)
+            db.session.add(new_vitamin)
+            db.session.commit()
+
+            #flash('Evaluation complete!, click results to see results', category='success')
+        elif gastro >= 1:
+            new_vitamin = Note(vitamin = "Gastro-Digest II", data = "You need 1 capsule before bed and 1 in the morning",description = gastro_description, user_id = current_user.id)
+            db.session.add(new_vitamin)
+            db.session.commit()
+
+            #flash('Evaluation complete!, click results to see results', category='success')
+
+        if kalmz == 8:#take more at night
+            new_vitamin = Note(vitamin = "Kalmz", data = "You need 4 capsule before bed",description = kalmz_description, user_id = current_user.id)
+            db.session.add(new_vitamin)
+            db.session.commit()
+
+            #flash('Evaluation complete!, click results to see results', category='success') 
+        elif kalmz >=4:
+            new_vitamin = Note(vitamin = "Kalmz", data = "You need 3 capsule before bed",description = kalmz_description, user_id = current_user.id)
+            db.session.add(new_vitamin)
+            db.session.commit()
+
+            #flash('Evaluation complete!, click results to see results', category='success')
+        elif kalmz >= 1:
+            new_vitamin = Note(vitamin = "Kalmz", data = "You need 2 capsule before bed",description = kalmz_description, user_id = current_user.id)
+            db.session.add(new_vitamin)
+            db.session.commit()
+
+            #flash('Evaluation complete!, click results to see results', category='success')
+
+        if adrenal == 7:
+            new_vitamin = Note(vitamin = "ReGenerZyme Adrenal", data = "You need 1 capsule before bed and 1 in the morning",description = adrenal_description, user_id = current_user.id)
+            db.session.add(new_vitamin)
+            db.session.commit()
+
+            #flash('Evaluation complete!, click results to see results', category='success')
+        elif adrenal >=4:
+            new_vitamin = Note(vitamin = "ReGenerZyme Adrenal", data = "You need 1 capsule before bed and 1 in the morning",description = adrenal_description, user_id = current_user.id)
+            db.session.add(new_vitamin)
+            db.session.commit()
+
+            #flash('Evaluation complete!, click results to see results', category='success')
+        elif adrenal >= 1:
+            new_vitamin = Note(vitamin = "ReGenerZyme Adrenal", data = "You need 1 capsule before bed and 1 in the morning",description = adrenal_description, user_id = current_user.id)
+            db.session.add(new_vitamin)
+            db.session.commit()
+
+            #flash('Evaluation complete!, click results to see results', category='success')
+
+        if thyroid >= 8:
+            new_vitamin = Note(vitamin = "ReGenerZyme Thyroid", data = "You need 3 capsule in the morning",description = thyroid_description, user_id = current_user.id)
+            db.session.add(new_vitamin)
+            db.session.commit()
+
+            #flash('Evaluation complete!, click results to see results', category='success')
+        elif thyroid >=4:
+            new_vitamin = Note(vitamin = "ReGenerZyme Thyroid", data = "You need 2 capsule in the morning",description = thyroid_description, user_id = current_user.id)
+            db.session.add(new_vitamin)
+            db.session.commit()
+
+            #flash('Evaluation complete!, click results to see results', category='success')
+        elif thyroid >= 1:
+            new_vitamin = Note(vitamin = "ReGenerZyme Thyroid", data = "You need 1 capsule in the morning",description = thyroid_description, user_id = current_user.id)
+            db.session.add(new_vitamin)
+            db.session.commit()
+
+            #flash('Evaluation complete!, click results to see results', category='success')
         
     #session['heart'] = heart
 
@@ -299,13 +544,8 @@ def eval():
 @app.route("/results")
 def results():
 
-
-
-
     #MAYBE PUT ALL OF IMAGES IN LIST AND RUN FOR LOOP IN HTML SO IMAGES COULD GO TO THE VERY TOP
     images = []
-
-
 
     #displaying pictures
     heart_im = None
@@ -326,9 +566,9 @@ def results():
 
     #for what images to pass
     for i in new_vitamin:
-        print (i.vitamin)
-        if i.vitamin == "heart":
-            print("hello again")
+        
+        if i.vitamin == "ReGenerZyme Heart":
+            
             heart_im = Image.open("Heart.jpg")
 
         #using BytesIO we get the in-memory info to save the image we just read
@@ -345,7 +585,7 @@ def results():
 
         if i.vitamin == "Immune-Rmor":
         
-            print("hello")
+            
             immune_im = Image.open("Immune.jpg")
 
             #using BytesIO we get the in-memory info to save the image we just read
@@ -363,7 +603,7 @@ def results():
 
         if i.vitamin == "Gastro-Digest II":
         
-            print("hello")
+            
             gastro_im = Image.open("gastro.jpg")
 
             #using BytesIO we get the in-memory info to save the image we just read
@@ -381,7 +621,7 @@ def results():
 
         if i.vitamin == "Kalmz":
         
-            print("hello")
+            
             kalmz_im = Image.open("Kalmz.jpg")
 
             #using BytesIO we get the in-memory info to save the image we just read
@@ -398,7 +638,7 @@ def results():
             images.append(kalmz_image)
         if i.vitamin == "ReGenerZyme Adrenal":
         
-            print("hello")
+            
             adrenal_im = Image.open("adrenal.jpg")
 
             #using BytesIO we get the in-memory info to save the image we just read
@@ -415,7 +655,7 @@ def results():
             images.append(adrenal_image)
         if i.vitamin == "ReGenerZyme Thyroid":
         
-            print("hello")
+            
             thyroid_im = Image.open("Thyroid.jpg")
 
             #using BytesIO we get the in-memory info to save the image we just read
