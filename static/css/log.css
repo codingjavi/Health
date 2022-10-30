@@ -1,0 +1,15 @@
+.container{
+    text-align: center;
+    /*border: 1px #ccc solid;*/
+    margin: 19% 25%;
+    border-radius: 15px;
+    padding-bottom: 25px;
+}
+body{
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+}
+a{
+    color: blue
+}

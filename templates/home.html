@@ -7,19 +7,32 @@
 <!--CHECK IF THE'VE TAKES THE TEST BY SEEING IF THERE'S ANYTHING IN THEIR DATABASE-->
 <body>
     
-<h1>Health</h1>
+<h1>Welcome to Happy Health {{user.name}}</h1>
 
 {% if checked == 1 %}
+<div class="eval">
+<img class = eval_pic src="../static/css/pictures/eval.jpg" alt="none">
+
 <h2><a href="{{ url_for('eval_again') }}"> Get evalueated again!</a></h2>
+<p>You can take the evaluation more than once if needed</p>
 
-{% else %}       
+</div>
+
+
+
+{% else %}
+<div class = "eval">     
+<img class = eval_pic src="../static/css/pictures/eval.jpg" alt="none">
 <h2><a href="{{ url_for('eval') }}"> Get evalueated here!</a></h2>
-
+<p>By taking a quick survey we can immediately see what vitamins will be best for you</p>
+</div> 
 {%endif%}
-   
 
+<div class = "check">
+<img class = check_pic src="../static/css/pictures/vitamins.jpg" alt="none">
 <h2><a href="{{ url_for('results') }}"> Check your vitamins here!</a> </h2>
-
+<p>Keep track of you vitamins here</p>
+</div>
 
 
 

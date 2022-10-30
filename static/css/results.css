@@ -3,7 +3,6 @@
     
 }
 #notes{
-    
     float: right;
     width: 80%;
 }
@@ -17,4 +16,32 @@
     height: 1500px;
     float: left;
     margin-left: -30px;
+}
+h1{
+    text-align: center;
+    padding-bottom: 10px;
+}
+.eval{
+    
+    float: left;
+    /*border: 1px #ccc solid;*/
+    border-radius: 15px;
+    margin-left: -5%;
+    width: 50%;
+    
+}
+.check{
+    margin: auto;
+    /*border: 1px #ccc solid;*/
+    float: right;
+    width: 50%;
+}
+.eval_pic{
+    width: 451px;
+    height: 315px;
+    
+}
+.check_pic{
+    width: 451px;
+    height: 315px;
 }
